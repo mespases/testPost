@@ -1,0 +1,34 @@
+Terminado:
+    OK Leer informacion de un formulario con flask
+    OK guardar la informacion que leemos de flask en mongodb
+    OK Informacion esperada:
+        Marca (String)
+        Modelo (String)
+        Cantidad (integer)
+        Estado (String)
+        activo (boolean)
+        EJ:
+        {
+        "Marca" : "HP",
+        "Modelo" : "XRVT",
+        "Cantidad" : 15,
+        "Estado" : "Almacenado",
+        "Activo" : true
+        }
+    OK Almacenar dicha  informacion en mongoDB
+    OK Visor para ver la informacion con bootstrap
+    OK guardar informacion en un dock
+    OK Crear login html
+    OK Login con usuario y contraseña
+        OK Recibe usuario y contraseña de el login
+        OK Abre mongodb y lee los usuarios
+        OK Comprobar si el usuario y la contraseña estan dentro de los usuarios de mongodb
+        OK Comprobar la contraseña encriptada con hash
+    OK Registrar nuevos usuarios
+    OK Guardar contraseña encriptada con hash
+    OK Comprobar que el usuario registrado no exista ya en mongodb
+        OK Si el email es null, no inserta al usuario
+        OK Hacer un for que recorra y compruebe si ya existe el usuario
+
+
+Falta por hacer:
