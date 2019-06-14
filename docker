@@ -1,0 +1,42 @@
+Comandos usados en docker:
+    Crear una imagen del docker: docker build --tag my-python-app .
+
+    Ejecutar el docker: docker run --rm -p 80:80 my-python-app
+
+    Mas info: https://www.wintellect.com/containerize-python-app-5-minutes/
+
+    Para eliminar: docker rm -f flamboyant_murdock
+
+    Resetear docker: docker system prune -a
+
+    Nuevo comando: docker-compose build "Funciona muy similar a docker build"
+
+    Nuevo comando: docker-compose up "Funciona muy similar a docker run"
+  
+Documento docker-compose:
+    web:
+      build: .
+      command: python -u testPost.py 
+      ports:
+        - "5000:5000"
+      volumes:
+        - .:/app //read only
+      links:
+        - db
+    db:
+      image: mongo:3.0.2
+      
+Documento dockerfile:
+    FROM python:2.7.14 as flask-app
+    COPY . /app
+    WORKDIR /app
+    RUN chmod 644 testPost.py
+    RUN chmod 644 regform.py
+    RUN chmod 644 testUsers.py
+    RUN pip install -r requirements.txt
+   
+requirements:
+    flask
+    pymongo
+    flask_login
+    WTForms
