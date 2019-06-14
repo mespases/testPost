@@ -12,6 +12,10 @@ app.secret_key = '123456'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+cliente = MongoClient('localHost', 27017)
+db = cliente.Practica
+collection_productos = db['Productos']
+
 usuario = User()
 
 
@@ -87,14 +91,25 @@ def information():
 
 def insertinMongo(json_recibido):
     try:
-        cliente = MongoClient('localHost', 27017)
-        db = cliente.Practica
-        collection_productos = db['Productos']
-
         datos = json.dumps(json_recibido)
         collection_productos.insert_one(json.loads(datos))
     except:
         print("Error en el insert")
+
+
+@app.route('/delete')
+def deleteProducto():
+    return render_template('form_del.html')
+
+@app.route('/inf_del', methods=["POST"])
+def inf_del():
+    json_del = request.form.to_dict()
+    try:
+        collection_productos.delete_one({"Modelo": json_del.get("Modelo"), "Marca": json_del.get("Marca")})
+    except:
+        print "El producto no existe"
+
+    return redirect('/table', code=302)
 
 
 @app.route('/logout')
