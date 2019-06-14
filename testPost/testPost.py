@@ -4,14 +4,17 @@ from werkzeug.utils import redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
 from regform import RegForm
+from logform import LogForm
 from testUsers import User
 import json
 
+# app config
 app = Flask(__name__)
 app.secret_key = '123456'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+# Connection to mongo
 cliente = MongoClient('localHost', 27017)
 db = cliente.Practica
 collection_productos = db['Productos']
@@ -26,7 +29,7 @@ def register():
     if form.validate():
         if not existenciaUsuario(form):
             hash_pass = generate_password_hash(form.password.data)
-            usuario = User(form.email.data, hash_pass)
+            usuario = User(form.email.data, hash_pass, form.role.data)
             login_user(usuario)
             return redirect('/table', code=302)
         else:
@@ -40,7 +43,7 @@ def register():
 @app.route('/', methods=['GET', 'POST'])
 def login():
     global usuario
-    form = RegForm(request.form)
+    form = LogForm(request.form)
     try:
         if form.validate():
             if comprobarEmail(form.email.data, form.password.data):
@@ -49,6 +52,7 @@ def login():
                     login_user(u)
                 except:
                     print "Login user incorrect"
+
                 return redirect('/table', code=302)
             else:
                 print "No encuentro el usuario"
@@ -60,7 +64,6 @@ def login():
 
 @login_manager.user_loader
 def load_user(user):
-    # return User.objects(pk=user).first()  "No entiendo como funciona, porque no hay instancia de la class asi que no se como la pueden usar en los ejemplos"
     global usuario
     return usuario
 
@@ -90,6 +93,7 @@ def information():
 
 
 def insertinMongo(json_recibido):
+    # Inserta los nuevos productos
     try:
         datos = json.dumps(json_recibido)
         collection_productos.insert_one(json.loads(datos))
@@ -98,10 +102,13 @@ def insertinMongo(json_recibido):
 
 
 @app.route('/delete')
+@login_required
 def deleteProducto():
     return render_template('form_del.html')
 
+
 @app.route('/inf_del', methods=["POST"])
+@login_required
 def inf_del():
     json_del = request.form.to_dict()
     try:

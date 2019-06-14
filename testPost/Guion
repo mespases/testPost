@@ -1,0 +1,48 @@
+Terminado:
+    OK Leer informacion de un formulario con flask
+    OK guardar la informacion que leemos de flask en mongodb
+    OK Informacion esperada:
+        Marca (String)
+        Modelo (String)
+        Cantidad (integer)
+        Estado (String)
+        activo (boolean)
+        EJ:
+        {
+        "Marca" : "HP",
+        "Modelo" : "XRVT",
+        "Cantidad" : 15,
+        "Estado" : "Almacenado",
+        "Activo" : true
+        }
+    OK Almacenar dicha  informacion en mongoDB
+    OK Visor para ver la informacion con bootstrap
+    OK guardar informacion en un dock
+    OK Crear login html
+    OK Login con usuario y contraseña
+        OK Recibe usuario y contraseña de el login
+        OK Abre mongodb y lee los usuarios
+        OK Comprobar si el usuario y la contraseña estan dentro de los usuarios de mongodb
+        OK Comprobar la contraseña encriptada con hash
+    OK Registrar nuevos usuarios
+    OK Guardar contraseña encriptada con hash
+    OK Comprobar que el usuario registrado no exista ya en mongodb
+        OK Si el email es null, no inserta al usuario
+        OK Hacer un for que recorra y compruebe si ya existe el usuario
+
+    OK Mejoras en el apartado del login mejorando:
+        OK Posiblidad de tener varios usuarios conectados a la vez en diferentes redes. (Probado desde ventana modo incognito)
+        OK Mejora frente a el bloqueo de las paginas cuando no estamos logueados mediante "@loguin_required"
+
+    OK Limpieza y depuracion del codigo, dividiendo de un solo documento .py a 3 documentos
+    OK Crear docker con el documento de post
+        OK Docker creado
+        OK Docker funciona correctamente
+        OK Docker-Compose para la utilizacion de mongoDB
+        OK Docker-Compose funcionando correctamente
+
+
+Falta por hacer:
+    Crear roles en el usuario
+    Cuando se registra un usuario, este le asigna roles
+    El rol de admin solo lo podra asignar el que tenga rol admin
